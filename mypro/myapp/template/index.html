@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h2, h3 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            var username = document.forms["registrationForm"]["user"].value;
+            var regNo = document.forms["registrationForm"]["reg_no"].value;
+            var dept = document.forms["registrationForm"]["dept"].value;
+            var email = document.forms["registrationForm"]["email"].value;
+
+            if (username == "") {
+                alert("Username must be filled out");
+                return false;
+            }
+            if (regNo == "") {
+                alert("Register Number must be filled out");
+                return false;
+            }
+            if (isNaN(regNo)) {
+                alert("Register Number must be a number");
+                return false;
+            }
+
+            if (dept == "") {
+                alert("Department must be filled out");
+                return false;
+            }
+
+
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email == "") {
+                alert("Email must be filled out");
+                return false;
+            }
+            if (!emailPattern.test(email)) {
+                alert("Invalid email format");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>CRUD operation using Django</h2>
+    <div>
+        <form id="registrationForm" action="{% url 'addrec' %}" method="post" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <h3>Registartion Form</h3>
+            <label>Username</label>
+            <br>
+            <input type="text"name="user">
+            <br>
+            <label>Register Number</label>
+            <br>
+            <input type="number" name="reg_no">
+            <br>
+            <label>Department</label>
+            <br>
+            <input type="text" name="dept">
+            <br>
+            <label>Email</label>
+            <br>
+            <input type="email" name="email">
+            <br>
+            <input type="submit">
+        </form>
+    </div>
+</body>
+</html>
